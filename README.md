@@ -19,6 +19,16 @@ void Count_sort(int a[], int n) {
 } /∗ Count sort ∗/ 
 ```
 
+### Compilation & Execution
+
+`
+gcc -g -Wall -o count_sort count_sort.c -lpthread
+`
+
+`
+./count_sort
+`
+
 ### Questions
 **Q1: If we try to parallelize the for i loop (the outer loop), which variables should be private and which should be shared?**
 
