@@ -38,16 +38,21 @@ Private: temp, count
 
 Shared: a\[ \]
 
+Why is count and temp local? 
+
+because I localised the whole function of count sort, with each of the threads calling it
+
 **Q2: If we parallelize the for i loop using the scoping you specified in the previous part, are there any loop-carried dependencies? Explain**
 
-Loop-carried dependencies: dependence exists across iterations
-
-i.e. if the loop is removed, the dependence no longer exists
+Yes there are loop dependencies in the for i loop. Inside the for i loop, the j loop exists, and if the i loop is removed from existence, then the dependence wouldn't exist anymore. That's how we can tell that there is loop-carried depedency.
 
 **Q3: Can we parallelize the call to memcpy? Can we modify the code so that this part of the function will be parallelizable?"**
 
-My current idea: Yes, different processes/threads write to different part of the array at the same time
+Yes memcpy can be parallelised but only inside the local function! The way I wrote it, inside count sort it can be parallelised because the function is local. However, it can not be parallelised if copying TO a GLOBAL array.
 
-HOWEVER, there might be an error
+Line 62: memcpy(a, temp, n\*sizeof(int)); is parallelised because the function is local
 
-**Q4: How does the performance of your parallelization of Count sort compare to serial Count sort? How does it compare to serial qsort library function?**
+Line 109: memcpy(a + id\*keys, local_arr, keys\*sizeof(int)); is not parallelised because a is a GLOBAL variable and I made it thread safe with mutexes
+
+**Q5: How does the performance of your parallelization of Count sort compare to serial Count sort? How does it compare to serial qsort library function?**
+
