@@ -72,6 +72,7 @@ Line 62: memcpy(a, temp, n\*sizeof(int)); is parallelised because the function i
 Line 109: memcpy(a + id\*keys, local_arr, keys\*sizeof(int)); is not parallelised because a is a GLOBAL variable and I made it thread safe with mutexes
 
 **Q5: How does the performance of your parallelization of Count sort compare to serial Count sort? How does it compare to serial qsort library function?**
+
 Serial Count Sort: O(n^2)
 
 My Parallelised Count Sort: O(n)
